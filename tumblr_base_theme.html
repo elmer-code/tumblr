@@ -1,0 +1,383 @@
+<!--
+ ! tumblr - Base Theme
+ !
+ ! features:
+ ! - all required theme elements
+ ! - HTML5 Reset
+ ! - Relevant ids and classes for easy styling
+ ! - Infinite Scrolling
+ !
+ ! more information:
+ ! http://eeelmer.com/tumblr-base-theme/
+ !
+ ! Author:
+ ! Elmer Ward
+ !-->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+{block:Description} <meta name="description" content="{MetaDescription}">{/block:Description}
+<title>{Title}</title>
+
+<link rel="shortcut icon" href="{Favicon}">
+<link rel="alternative" type="application/rss+xml" href="{RSS}">
+
+<style type="text/css">
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0; padding:0; border:0; outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body { line-height:1; }
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { display:block; }
+
+nav ul { list-style:none; }
+
+blockquote, q { quotes:none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+
+/* change colours to suit your needs */
+ins { background-color:#ff9; color:#000; text-decoration:none; }
+
+/* change colours to suit your needs */
+mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
+
+table { border-collapse:collapse; border-spacing:0; }
+
+/* change border colour to suit your needs */
+hr { display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0; }
+
+input, select { vertical-align:middle; }
+
+/* RESET CSS - END*/
+
+#infscr-loading {
+    display:            none    !important;
+}
+
+::-webkit-scrollbar-thumb:vertical { 
+    background-color:   #ccc;
+    height:             10px;
+}
+
+::-webkit-scrollbar-thumb:horizontal { 
+    background-color:   #ccc;
+    height:             10px;
+}
+
+::-webkit-scrollbar { 
+    height:             10px;
+    width:              8px; 
+    background-color:   #111;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content:            ".";    
+    display:            block;    
+    height:             0;    
+    overflow:           hidden; 
+}
+.clearfix:after {
+    clear:              both;
+}
+
+.clearfix {
+    zoom:               1; // IE < 8
+}
+
+/* BASIC TYPOGRAPHY */
+
+body {}
+
+a:link,
+a:visited {}
+
+a:hover,
+a:active {}
+
+blockquote {}
+
+cite {}
+
+h1 {}
+
+h2 {}
+
+h3 {}
+
+ol, ul {}
+
+p + p {}
+
+pre {}
+
+pre,
+code {}
+
+/* STRUCTURE */
+
+#site-header {}
+  
+    #site-title {}
+  
+    #site-description {}
+  
+    #site-nav {}
+
+#content {}
+
+    .post {}
+  
+        .post-title {}
+    
+        .caption {}
+
+        .short-quote,
+        .medium-quote,
+        .long-quote {}
+    
+        .quote-source {}
+
+        .chat{}
+    
+            .odd,
+            .even {}
+      
+                .chat-participant {}
+        
+                .chat-text {}
+      
+        .audio-player {}
+    
+        .video-player {}
+    
+        .question {}
+    
+        .answer {}
+    
+        .post-footer {}
+    
+            .post-date {}
+      
+    #pagination {}
+
+{CustomCSS}
+</style>
+
+</head>
+
+<body>
+
+<header id="site-header">
+    <h1 id="site-title"><a href="/" title="{lang:Home}">{Title}</a></h1>
+    
+    {block:Description}
+    <div id="site-description">
+        {Description}
+    </div>
+    {/block:Description}    
+    
+    <nav id="site-nav">
+        <ul>
+            {block:AskEnabled}
+            <li><a href="/ask">{AskLabel}</a></li>
+            {/block:AskEnabled}
+            <li><a href="/archive">archive</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div id="content">
+
+    {block:Posts}
+    <article class="post">
+        
+        {block:Text}
+        {block:Title}<h1 class="post-title">{Title}</h1>{/block:Title}
+            
+        {Body}
+        {/block:Text}
+        
+        {block:Photo}
+        {LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" />{LinkCloseTag}
+        {block:Caption}
+        <div class="caption">
+            {Caption}
+        </div>
+        {/block:Caption}
+        {/block:Photo}
+        
+        {block:Photoset}
+        {Photoset-500}
+        {block:Caption}
+        <div class="caption">
+            {Caption}
+        </div>
+        {/block:Caption}
+        {/block:Photoset}
+        
+        {block:Quote}
+        <blockquote class="{Length}-quote">{Quote}</blockquote>
+        {block:Source}
+        <div class="quote-source">
+            <cite>{Source}</cite>
+        </div>
+        {/block:Source}
+        {/block:Quote}
+        
+        {block:Link}
+        <h1 class="post-title"><a href="{URL}">{Name}</a></h1>
+        {block:Description}{Description}{/block:Description}
+        {/block:Link}
+        
+        {block:Chat}
+        {block:Title}<h1 class="post-title">{Title}</h1>{/block:Title}
+        
+        <ul class="chat">
+            {block:Lines}
+            <li class="{Alt}">
+                {block:Label}<span class="chat-person">{Label}</span>{/block:Label}
+                <p class="chat-text">{Line}</p>
+            </li>
+            {/block:Lines}
+        </ul>
+        {/block:Chat}
+        
+        {block:Audio}
+        {block:TrackName}
+        <h1 class="post-title">{TrackName}</h1>
+        {/block:TrackName}
+        <div class="audio-player">{AudioPlayerBlack}</div>
+        {block:AudioEmbed}{AudioEmbed}{/block:AudioEmbed}
+        {block:Caption}
+        <div class="caption">
+            {Caption}
+        </div>
+        {/block:Caption}
+        {/block:Audio}
+        
+        {block:Video}
+        <div class="video-player">{Video-500}</div>
+        {block:Caption}
+        <div class="caption">
+            {Caption}
+        </div>
+        {/block:Caption}
+        {/block:Video}
+        
+        {block:Answer}
+        <div class="question">
+            {Asker}: {Question}
+        </div>
+        
+        <div class="answer">
+            {Answer}
+        </div>
+        {/block:Answer}
+        
+        <footer class="post-footer">
+        
+            {block:Date}
+            <div class="post-date">
+                posted on: <a href="{Permalink}">{Month} {DayOfMonth}, {Year}</a>
+            </div>
+            {/block:Date}
+            
+            {block:ContentSource}
+            <div>
+                <span>source: <a href="{SourceURL}">{SourceTitle}</a></span>
+            </div>
+            {/block:ContentSource}    
+            
+            {block:RebloggedFrom}
+            <div>
+                <span>via: <a href="{ReblogParentURL}">{ReblogParentTitle}</a></span>
+            </div>
+            {/block:RebloggedFrom}
+            
+            {block:PermalinkPage}
+        
+            {block:NoteCount}
+            {NoteCountWithLabel}
+            {/block:NoteCount}
+            
+            {block:PostNotes}
+            {PostNotes}
+            {/block:PostNotes}
+        
+            {/block:PermalinkPage}
+        
+        </footer>
+    
+    </article>
+    {/block:Posts}
+
+</div>
+
+{block:Pagination}
+<nav id="pagination">
+    {block:PreviousPage}
+    <a href="{PreviousPage}">newer posts</a>
+    {/block:PreviousPage}  
+
+    {block:NextPage}
+    <a id="next-page" href="{NextPage}">older posts</a>
+    {/block:NextPage}  
+</nav>
+{/block:Pagination}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="http://static.tumblr.com/wgijwsy/u2vm2hxv6/jquery.infinitescroll.min.js"></script>
+<script>
+    $('#content').infinitescroll({ 
+        itemSelector : ".post",
+        navSelector  : "#pagination",
+        nextSelector : "#next-page",
+        loading      : {
+            msgText  : "loading text",
+            img      : "",
+            finishedMsg: "nothing more to load text"
+                       }
+    });
+</script>
+    
+</body>
+
+</html>
